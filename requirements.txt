@@ -1,0 +1,12 @@
+Flask
+keras
+Markdown
+numpy
+pandas
+requests
+protobuf>=3.20.2,<6.0.0
+scikit-learn
+scipy
+tensorboard
+tensorboard-data-server
+tensorflow
