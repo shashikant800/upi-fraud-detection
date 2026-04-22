@@ -21,30 +21,14 @@ app = Flask(__name__)
 @app.route('/first')
 def first():
     return render_template('first.html')
+
 @app.route('/login')
 def login():
     return render_template('login.html')
-def home():
-	return render_template('home.html')
-@app.route('/upload')
-def upload():
-    return render_template('upload.html')  
-@app.route('/preview',methods=["POST"])
-def preview():
-    if request.method == 'POST':
-        dataset = request.files['datasetfile']
-        df = pd.read_csv(dataset,encoding = 'unicode_escape')
-        df.set_index('Id', inplace=True)
-        return render_template("preview.html",df_view = df) 
-
 
 @app.route('/prediction1', methods=['GET'])
 def prediction1():
     return render_template('index.html')
-
-@app.route('/chart')
-def chart():
-    return render_template('chart.html')
 
 @app.route('/detect', methods=['POST'])
 def detect():

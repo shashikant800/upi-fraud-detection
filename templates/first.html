@@ -4,150 +4,470 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>UPI Fraud Detection</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
+  <title>UPI Fraud Detection - Secure Your Transactions</title>
+  <meta content="Advanced UPI fraud detection using machine learning" name="description">
+  
   <!-- Favicons -->
   <link href="../static/img/favicon.png" rel="icon">
   <link href="../static/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="../static/vendor/aos/aos.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap CSS -->
   <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="../static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="../static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="../static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  
+  <!-- AOS CSS -->
+  <link href="../static/vendor/aos/aos.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="../static/css/style3.css" rel="stylesheet">
+  <!-- Main CSS -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
 
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 1rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white !important;
+    }
+
+    .nav-link {
+      color: rgba(255,255,255,0.8) !important;
+      font-weight: 500;
+      transition: color 0.3s;
+      margin: 0 0.5rem;
+    }
+
+    .nav-link:hover {
+      color: white !important;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 150px 0 100px;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+
+    .btn-primary {
+      background: white;
+      color: #667eea;
+      border: none;
+      padding: 12px 30px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      margin: 0 10px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      color: #667eea;
+    }
+
+    .btn-outline-light {
+      border: 2px solid white;
+      color: white;
+      padding: 10px 28px;
+      font-weight: 600;
+      border-radius: 50px;
+      transition: all 0.3s;
+      margin: 0 10px;
+    }
+
+    .btn-outline-light:hover {
+      background: white;
+      color: #667eea;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 80px 0;
+      background: #f8f9fa;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    .section-title p {
+      font-size: 1.1rem;
+      color: #666;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      margin-bottom: 30px;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      color: #667eea;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    /* About Section */
+    .about {
+      padding: 80px 0;
+      background: white;
+    }
+
+    .about-content {
+      margin-bottom: 50px;
+    }
+
+    .about-content h3 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .about-content p {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    /* Team Section */
+    .team {
+      padding: 80px 0;
+      background: #f8f9fa;
+    }
+
+    .team-member {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: transform 0.3s;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .team-member:hover {
+      transform: translateY(-5px);
+    }
+
+    .member-img {
+      width: 100%;
+      height: 250px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      color: white;
+    }
+
+    .member-info {
+      padding: 25px;
+    }
+
+    .member-info h4 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    .member-info p {
+      color: #667eea;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .member-info small {
+      color: #999;
+    }
+
+    /* CTA Section */
+    .cta {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .cta p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Footer */
+    footer {
+      background: #333;
+      color: white;
+      padding: 30px 0;
+      text-align: center;
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+
+      .btn-primary, .btn-outline-light {
+        display: block;
+        margin: 10px auto;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- ======= Top Bar ======= -->
-  <div id="topbar" class="d-flex align-items-center fixed-top">
-    <div class="container d-flex justify-content-center justify-content-md-between">
-
-
-
-
+  <!-- Header -->
+  <header>
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-md-3">
+          <a class="navbar-brand" href="{{ url_for('first') }}">
+            <i class="bi bi-shield-check"></i> UPI Fraud Detection
+          </a>
+        </div>
+        <div class="col-md-9">
+          <nav class="navbar navbar-expand-lg navbar-dark justify-content-end">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('first') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('prediction1') }}">Detect Fraud</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
     </div>
-  </div>
+  </header>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-cente">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
-
-      <h1 class="col-lg-8"><a href="first.html"> <span>UPI Fraud Detection</span></a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="../static/img/logo.png" alt="" class="img-fluid"></a>-->
-
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>
-          <li><a class="nav-link scrollto active" href="{{ url_for('first')}}">Home</a></li>
-
-          <li><a class="nav-link scrollto" href="{{ url_for('login')}}">Login</a></li>
-
-          <li><a class="nav-link scrollto" href="{{ url_for('upload')}}">Upload</a></li>
-
-
-          <li><a class="nav-link scrollto" href="{{ url_for('prediction1')}}">Check</a></li>
-
-          <li><a class="nav-link scrollto" href="{{ url_for('chart')}}">Chart</a></li>
-
-
-
-
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1 data-aos="fade-up">Secure Your UPI Transactions</h1>
+      <p data-aos="fade-up" data-aos-delay="100">Advanced machine learning-powered fraud detection system</p>
+      <div data-aos="fade-up" data-aos-delay="200">
+        <a href="{{ url_for('login') }}" class="btn btn-primary">Get Started</a>
+        <a href="#about" class="btn btn-outline-light">Learn More</a>
+      </div>
     </div>
-  </header><!-- End Header -->
+  </section>
 
-
-
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center">
-    <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>Why Choose Us?</h2>
+        <p>Cutting-edge technology for maximum security</p>
+      </div>
       <div class="row">
-        <div class="col-lg-8">
-          <h1>UPI Fraud Detection Using
-            Machine Learning Approaches</h1>
-
-          <div class="btns">
-            <a href="#about" class="btn-menu animated fadeInUp scrollto">Abstract</a>
-
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="bi bi-lightning-charge"></i></div>
+            <h3>Real-Time Detection</h3>
+            <p>Instantly identify fraudulent transactions with our advanced ML algorithms</p>
           </div>
         </div>
-
-
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="bi bi-shield-lock"></i></div>
+            <h3>Highly Secure</h3>
+            <p>Your data is protected with enterprise-grade security measures</p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="bi bi-graph-up"></i></div>
+            <h3>99% Accuracy</h3>
+            <p>Trained on massive datasets for superior fraud detection performance</p>
+          </div>
+        </div>
       </div>
     </div>
-  </section><!-- End Hero -->
+  </section>
 
-  <main id="main">
-
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <div class="container" data-aos="fade-up">
-
-        <div class="row">
-          <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in" data-aos-delay="100">
-
+  <!-- About Section -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <div class="about-content">
+            <h3>About Our Project</h3>
+            <p>UPI fraud is becoming increasingly prevalent in financial transactions. Our project addresses this critical challenge by implementing a CNN-based fraud detection framework that captures intrinsic patterns of fraudulent behaviors.</p>
+            <p>Using advanced machine learning techniques, we analyze transaction data to identify suspicious patterns that traditional rule-based systems might miss. Our system has been trained on real-world transaction data to provide accurate and reliable fraud detection.</p>
+            <p>Whether you're processing single transactions or bulk datasets, our platform provides comprehensive fraud detection capabilities with minimal false positives.</p>
           </div>
-          <div class="col-lg-4 ml-auto" style="margin-left:360px;">
-            <center>
-              <h3>Abstract</h3>
-            </center>
-          </div>
-          </br>
-          </br>
-          <p>
-            UPI Fraud is becoming more and more popular in financial transactions, at the same time frauds are also
-            increasing. Conventional methods use rule-based expert systems to detect fraud behaviors, neglecting diverse
-            situations, extreme imbalance of positive and negative samples. In this paper, we propose a CNN-based fraud
-            detection framework, to capture the intrinsic patterns of fraud behaviors learned from labeled data.
-            Abundant transaction data is represented by a feature matrix, on which a convolutional neural network is
-            applied to identify a set of latent patterns for each sample. Experiments on real-world massive transactions
-            of a major commercial bank demonstrate its superior performance compared with some state-of-the-art methods.
-          </p>
-
-
         </div>
-
+        <div class="col-lg-6" data-aos="fade-left">
+          <div class="about-content">
+            <h3>How It Works</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 1rem;"><strong><i class="bi bi-check-circle" style="color: #667eea;"></i> Data Input:</strong> Submit transaction details or upload a dataset</li>
+              <li style="margin-bottom: 1rem;"><strong><i class="bi bi-check-circle" style="color: #667eea;"></i> Processing:</strong> Our ML model analyzes the transaction patterns</li>
+              <li style="margin-bottom: 1rem;"><strong><i class="bi bi-check-circle" style="color: #667eea;"></i> Detection:</strong> Instant fraud classification with confidence scores</li>
+              <li style="margin-bottom: 1rem;"><strong><i class="bi bi-check-circle" style="color: #667eea;"></i> Results:</strong> Clear, actionable insights for decision making</li>
+            </ul>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
 
+  <!-- Team Section -->
+  <section class="team">
+    <div class="container">
+      <div class="section-title">
+        <h2>Meet Our Team</h2>
+        <p>Talented developers and data scientists behind this project</p>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-lg-3" data-aos="fade-up">
+          <div class="team-member">
+            <div class="member-img"><i class="bi bi-person-circle"></i></div>
+            <div class="member-info">
+              <h4>Musarraf</h4>
+              
+              <small>Full Stack Development & Backend</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+          <div class="team-member">
+            <div class="member-img"><i class="bi bi-person-circle"></i></div>
+            <div class="member-info">
+              <h4>Shashi kant</h4>
+              <small>Model Development & Training</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+          <div class="team-member">
+            <div class="member-img"><i class="bi bi-person-circle"></i></div>
+            <div class="member-info">
+              <h4>Saloni kumari</h4>
+              <p>Data Scientist</p>
+              <small>Data Analysis & Feature Engineering</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+          <div class="team-member">
+            <div class="member-img"><i class="bi bi-person-circle"></i></div>
+            <div class="member-info">
+              <h4>Aditya singh</h4>
+              <p>UI/UX Designer</p>
+              <small>Frontend & User Experience</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to Protect Your Transactions?</h2>
+      <p>Start detecting fraud in your UPI transactions today</p>
+      <a href="{{ url_for('login') }}" class="btn btn-primary">Login Now</a>
+    </div>
+  </section>
 
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 UPI Fraud Detection System. All rights reserved.</p>
+    </div>
+  </footer>
 
-
-      <!-- ======= Footer ======= -->
-      <!-- End Footer -->
-
-
-
-      <!-- Vendor JS Files -->
-      <script src="../static/vendor/aos/aos.js"></script>
-      <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <script src="../static/vendor/glightbox/js/glightbox.min.js"></script>
-      <script src="../static/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-      <script src="../static/vendor/php-email-form/validate.js"></script>
-      <script src="../static/vendor/swiper/swiper-bundle.min.js"></script>
-
-      <!-- Template Main JS File -->
-      <script src="../static/js/main.js"></script>
+  <!-- Scripts -->
+  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../static/vendor/aos/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 
 </body>
 

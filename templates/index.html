@@ -1,210 +1,386 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>UPI Fraud Detection</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
+  <title>Detect Fraud - UPI Fraud Detection</title>
+  
   <!-- Favicons -->
   <link href="../static/img/favicon.png" rel="icon">
   <link href="../static/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap CSS -->
+  <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link href="../static/css/index.css" type="text/css" rel="stylesheet">
-</head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<!-- Google Fonts -->
-<link
-  href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-  rel="stylesheet">
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8f9fa;
+      color: #333;
+    }
 
-<!-- Vendor CSS Files -->
-<link href="../static/vendor/aos/aos.css" rel="stylesheet">
-<link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="../static/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-<link href="../static/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-<link href="../static/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-<link href="../static/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 1rem 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
 
-<!-- Template Main CSS File -->
-<link href="../static/css/style3.css" rel="stylesheet">
+    .navbar-brand {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white !important;
+    }
 
+    .nav-link {
+      color: rgba(255,255,255,0.8) !important;
+      font-weight: 500;
+      transition: color 0.3s;
+      margin: 0 0.5rem;
+    }
+
+    .nav-link:hover {
+      color: white !important;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-top: 80px;
+      padding: 40px 0;
+    }
+
+    .form-container {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      padding: 40px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .form-header h1 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .form-header p {
+      color: #666;
+      font-size: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #333;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .form-row.full {
+      grid-template-columns: 1fr;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 14px 40px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      transition: transform 0.3s, box-shadow 0.3s;
+      margin-top: 1rem;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .back-link a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .back-link a:hover {
+      color: #764ba2;
+    }
+
+    .info-box {
+      background: #f0f4ff;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      color: #555;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 768px) {
+      .form-container {
+        padding: 25px;
+      }
+
+      .form-header h1 {
+        font-size: 1.5rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row.full {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- ======= Top Bar ======= -->
-  <div id="topbar" class="d-flex align-items-center fixed-top">
-    <div class="container d-flex justify-content-center justify-content-md-between">
+  <!-- Header -->
+  <header>
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-md-3">
+          <a class="navbar-brand" href="{{ url_for('first') }}">
+            <i class="bi bi-shield-check"></i> UPI Fraud Detection
+          </a>
+        </div>
+        <div class="col-md-9">
+          <nav class="navbar navbar-expand-lg navbar-dark justify-content-end">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('first') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('first') }}#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('prediction1') }}">Detect Fraud</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
 
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="container">
+      <div class="form-container">
+        <div class="form-header">
+          <h1><i class="bi bi-search"></i> Detect Fraud</h1>
+          <p>Enter transaction details to check for potential fraud</p>
+        </div>
 
+        <div class="info-box">
+          <i class="bi bi-info-circle"></i> Fill in all the transaction details below for accurate fraud detection
+        </div>
 
+        <form action="/detect" method="post">
+          <!-- UPI Number -->
+          <div class="form-group">
+            <label for="card_number">UPI Number</label>
+            <input type="number" id="card_number" name="card_number" placeholder="Enter UPI number" required>
+          </div>
 
+          <!-- UPI Holder Name -->
+          <div class="form-group">
+            <label for="card_holder_name">UPI Holder Name</label>
+            <input type="text" id="card_holder_name" name="card_holder_name" placeholder="Enter UPI holder name">
+          </div>
+
+          <!-- Date of Birth -->
+          <div class="form-group">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" required>
+          </div>
+
+          <!-- State and Zip Code -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="state">State</label>
+              <select id="state" name="state" required>
+                <option selected disabled value="">Select state</option>
+                <option value="0">Andhra Pradesh</option>
+                <option value="1">Arunachal Pradesh</option>
+                <option value="2">Assam</option>
+                <option value="3">Bihar</option>
+                <option value="4">Chhattisgarh</option>
+                <option value="5">Goa</option>
+                <option value="6">Gujarat</option>
+                <option value="7">Haryana</option>
+                <option value="8">Jharkhand</option>
+                <option value="9">Himachal Pradesh</option>
+                <option value="10">Karnataka</option>
+                <option value="11">Kerala</option>
+                <option value="12">Madhya Pradesh</option>
+                <option value="13">Maharashtra</option>
+                <option value="14">Manipur</option>
+                <option value="15">Meghalaya</option>
+                <option value="16">Mizoram</option>
+                <option value="17">Nagaland</option>
+                <option value="18">Odisha</option>
+                <option value="19">Punjab</option>
+                <option value="20">Rajasthan</option>
+                <option value="21">Sikkim</option>
+                <option value="22">Tamil Nadu</option>
+                <option value="23">Telangana</option>
+                <option value="24">Tripura</option>
+                <option value="25">Uttar Pradesh</option>
+                <option value="26">Uttarakhand</option>
+                <option value="27">West Bengal</option>
+                <option value="28">Andaman and Nicobar Islands</option>
+                <option value="29">Chandigarh</option>
+                <option value="30">Dadra and Nagar Haveli and Daman and Diu</option>
+                <option value="31">Delhi</option>
+                <option value="32">Jammu and Kashmir</option>
+                <option value="33">Ladakh</option>
+                <option value="34">New York</option>
+                <option value="35">Lakshadweep</option>
+                <option value="36">Puducherry</option>
+                <option value="37">Oregon</option>
+                <option value="38">Pennsylvania</option>
+                <option value="39">Rhode Island</option>
+                <option value="40">London</option>
+                <option value="41">South Dakota</option>
+                <option value="42">Tennessee</option>
+                <option value="43">Texas</option>
+                <option value="44">Utah</option>
+                <option value="45">Virginia</option>
+                <option value="46">Singapore</option>
+                <option value="47">Washington</option>
+                <option value="48">New York</option>
+                <option value="49">West Virginia</option>
+                <option value="50">Maldives</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="zip">Pin Code</label>
+              <input type="number" id="zip" name="zip" placeholder="Enter pin code" required>
+            </div>
+          </div>
+
+          <!-- Transaction Date & Time -->
+          <div class="form-group">
+            <label for="trans_datetime">Transaction Date & Time</label>
+            <input type="datetime-local" id="trans_datetime" name="trans_datetime" required>
+          </div>
+
+          <!-- Transaction Amount -->
+          <div class="form-group">
+            <label for="trans_amount">Transaction Amount (₹)</label>
+            <input type="number" id="trans_amount" name="trans_amount" placeholder="Enter amount in rupees" step="0.01" required>
+          </div>
+
+          <!-- Merchant Name -->
+          <div class="form-group">
+            <label for="merchant">Merchant Name</label>
+            <input type="text" id="merchant" name="merchant" placeholder="Enter merchant/seller name">
+          </div>
+
+          <!-- Merchant Category -->
+          <div class="form-group">
+            <label for="category">Merchant Category</label>
+            <select id="category" name="category" required>
+              <option selected disabled value="">Select merchant category</option>
+              <option value="0">Entertainment</option>
+              <option value="1">Food Dining</option>
+              <option value="2">Gas Transport</option>
+              <option value="3">Grocery NET</option>
+              <option value="4">Grocery POS</option>
+              <option value="5">Health Fitness</option>
+              <option value="6">Home</option>
+              <option value="7">Kids Pets</option>
+              <option value="8">Miscellaneous NET</option>
+              <option value="9">Miscellaneous POS</option>
+              <option value="10">Personal Care</option>
+              <option value="11">Shopping NET</option>
+              <option value="12">Shopping POS</option>
+              <option value="13">Travel</option>
+            </select>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="submit-btn">
+            <i class="bi bi-search"></i> Detect Fraud
+          </button>
+
+          <div class="back-link">
+            <a href="{{ url_for('first') }}"><i class="bi bi-arrow-left"></i> Back to Home</a>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top d-flex align-items-cente">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-      <h1 class="col-lg-8"><a href="index.html"> <span>UPI Fraud Detection</span></a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="../static/img/logo.png" alt="" class="img-fluid"></a>-->
-
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>
-          <li><a class="nav-link scrollto active" href="{{ url_for('first')}}">Home</a></li>
-
-          <li><a class="nav-link scrollto" href="{{ url_for('login')}}">Login</a></li>
-
-          <li><a class="nav-link scrollto" href="{{ url_for('upload')}}">Upload</a></li>
-
-
-          <li><a class="nav-link scrollto" href="{{ url_for('prediction1')}}">Check</a></li>
-
-          <li><a class="nav-link scrollto" href="{{ url_for('chart')}}">Chart</a></li>
-
-
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
-
-    </div>
-  </header><!-- End Header -->
-
-  <section id="hero" class="d-flex align-items-center">
-    <div class="container d-flex flex-column align-items-center" data-aos="zoom-in" data-aos-delay="100">
-      <h1>UPI Fraud Detection System</h1>
-      <h2>I'm a Professional Detector using Machine Learning</h2>
-      <a href="about.html" class="btn-about">About Me</a>
-    </div>
-  </section><!-- End Hero -->
-
-
-  <div class="container register-form">
-    <div class="heading">
-      <p>UPI FRAUD DETECTION</p>
-    </div>
-    <div class="form-content">
-      <form class="row" action="/detect" method="post">
-        <div class="col-md-12">
-          <input type="number" name="card_number" placeholder="Enter UPI number" required />
-        </div>
-        <div class="col-md-6">
-          <input type="text" name="card_holder_name" placeholder="UPI holder name" />
-        </div>
-        <div class="col-md-6">
-          <input type="text" name="dob" placeholder="Enter date of Birth" onfocus="(this.type='date')" required />
-        </div>
-        <div class="col-md-6">
-          <select name="state" required>
-            <option selected disabled value="">Select state</option>
-            <option value="0">Andhra Pradesh</option>
-            <option value="1">Arunachal Pradesh</option>
-            <option value="2">Assam</option>
-            <option value="3">Bihar</option>
-            <option value="4">Chhattisgarh</option>
-            <option value="5">Goa</option>
-            <option value="6">Gujarat</option>
-            <option value="7">Haryana</option>
-            <option value="8">Jharkhand</option>
-            <option value="9">Himachal Pradesh</option>
-            <option value="10">Karnataka</option>
-            <option value="11">Kerala</option>
-            <option value="12">Madhya Pradesh</option>
-            <option value="13">Maharashtra</option>
-            <option value="14">Manipur</option>
-            <option value="15">Meghalaya</option>
-            <option value="16">Mizoram</option>
-            <option value="17">Nagaland</option>
-            <option value="18">Odisha</option>
-            <option value="19">Punjab</option>
-            <option value="20">Rajasthan</option>
-            <option value="21">Sikkim</option>
-            <option value="22">Tamil Nadu</option>
-            <option value="23">Telangana</option>
-            <option value="24">Tripura</option>
-            <option value="25">Uttar Pradesh</option>
-            <option value="26">Uttarakhand</option>
-            <option value="27">West Bengal</option>
-            <option value="28">Andaman and Nicobar Islands</option>
-            <option value="29">Chandigarh</option>
-            <option value="30">Dadra and Nagar Haveli and Daman and Diu</option>
-            <option value="31">Delhi</option>
-            <option value="32">Jammu and Kashmir</option>
-            <option value="33">Ladakh</option>
-            <option value="34">New York</option>
-            <option value="35">Lakshadweep</option>
-            <option value="36">Puducherry</option>
-            <option value="37">Oregon</option>
-            <option value="38">Pennsylvania</option>
-            <option value="39">Rhode Island</option>
-            <option value="40">London</option>
-            <option value="41">South Dacota</option>
-            <option value="42">Tennessee</option>
-            <option value="43">Texas</option>
-            <option value="44">Utah</option>
-            <option value="45">Virginia</option>
-            <option value="46">Singapore</option>
-            <option value="47">Washington</option>
-            <option value="48">New York</option>
-            <option value="49">West Virginia</option>
-            <option value="50">Maldives</option>
-          </select>
-        </div>
-        <div class="col-md-6">
-          <input type="number" name="zip" placeholder="Enter pin code" required />
-        </div>
-        <div class="col-md-6">
-          <input type="text" name="trans_datetime" placeholder="Enter the date and time of transaction"
-            onfocus="(this.type='datetime-local')" required />
-        </div>
-        <div class="col-md-6">
-          <input type="number" name="trans_amount" placeholder="Enter transaction amount (Rs)" required />
-        </div>
-        <div class="col-md-6">
-          <input type="text" name="merchant" placeholder="Enter Seller name" />
-        </div>
-        <div class="col-md-6">
-          <select name="category" required>
-            <option selected disabled value="">Select merchant category</option>
-            <option value="0">Entertainment</option>
-            <option value="1">Food Dining</option>
-            <option value="2">Gas Transport</option>
-            <option value="3">Grocery NET</option>
-            <option value="4">Grocery POS</option>
-            <option value="5">Health Fitness</option>
-            <option value="6">Home</option>
-            <option value="7">Kids Pets</option>
-            <option value="8">Miscellaneous NET</option>
-            <option value="9">Miscellaneous POS</option>
-            <option value="10">Personal Care</option>
-            <option value="11">Shopping NET</option>
-            <option value="12">Shopping POS</option>
-            <option value="13">Travel</option>
-          </select>
-        </div>
-        <div id="btn" class="col">
-          <button type="submit" class="btnSubmit">Click to Detect</button>
-        </div>
-      </form>
-    </div>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
 </body>
 
 </html>
