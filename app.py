@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 import tensorflow as tf
 from flask import Flask, request, render_template
+import pickle
 
 dataset = pd.read_csv('dataset/upi_fraud_dataset.csv', index_col=0)
 
@@ -11,7 +12,7 @@ x = dataset.iloc[:, : 10].values
 y = dataset.iloc[:, 10].values
 
 scaler = StandardScaler()
-scaler.fit_transform(x)
+scaler.fit(x)
 
 model = tf.keras.models.load_model('filesuse/project_model1.h5')
 
