@@ -10,13 +10,15 @@ Modern Flask web app for detecting potentially fraudulent UPI transactions using
 - **Navigation**: Home, About, Login, Detect Fraud
 - **Fraud detection form**: structured inputs and user-friendly validation flow
 
-### UI Preview (add screenshots)
+### UI Preview
 
-This repo currently doesn’t track screenshots. If you want screenshots to show up here, add image files under `assets/` and update paths below:
+#### Home / Landing
 
-- `assets/ui-home.png`
-- `assets/ui-detect-form.png`
-- `assets/ui-result.png`
+![Home / Landing](assets/ui-home.png)
+
+#### Detect Fraud (form)
+
+![Detect Fraud form](assets/ui-detect-form.png)
 
 ### Routes
 
