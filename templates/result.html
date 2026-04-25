@@ -219,6 +219,10 @@
       <p><strong>Status:</strong> {{OUTPUT}}</p>
       <p><strong>Timestamp:</strong> {{ now.strftime('%Y-%m-%d %H:%M:%S') if now else 'N/A' }}</p>
     </div>
+      <div class="info-section">
+    <h4>AI Explanation</h4>
+    <p>{{ explanation }}</p>
+  </div>
 
     <div class="action-buttons">
       <a href="{{ url_for('first') }}" class="btn-action btn-home">
